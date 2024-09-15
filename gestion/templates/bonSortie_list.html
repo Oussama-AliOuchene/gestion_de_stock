@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Liste de Bon Sortie</title>
+    
+  </head>
+  <body >
+    {% block content %}
+    <div class="d-flex justify-content-between align-items-center">
+      <h2>Liste de Bon Sortie</h2>
+      <a href="{% url 'create_bonSortie' %}">
+        <button type="button" class="btn btn-info">Ajouter ✚</button>
+      </a>
+    </div>
+
+      <div class="container mt-4">  
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">code BonSorite</th>
+              <th scope="col">Pruduits</th>
+              <th scope="col">quentité Sortie</th>
+              <th scope="col">date de Sorite</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for bon in bons %}
+            <tr>
+              <td>{{ bon.code_bon_sortie }}</td>
+              <td>{{ bon.code_produit.designation }}</td>
+              <td>{{ bon.quantite_sortie }}</td>
+              <td>{{ bon.date_sortie }}</td>
+              <td>
+                <a href="{% url 'delete_bonSortie'  bon.code_bon_sortie%}" class="btn btn-danger btn-sm">Supprimer</a>
+                <a href="{% url 'updateBonSortie' bon.code_bon_sortie%}" class="btn btn-info btn-sm">Mettre à jour</a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="3" class="text-center">Aucun produit trouvé.</td>
+            </tr>
+            {% endfor %}
+            
+          </tbody>
+        </table>
+      </div>      
+    {% endblock %}
+  </body>
+</html>
